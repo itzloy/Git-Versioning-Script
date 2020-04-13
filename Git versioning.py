@@ -1,6 +1,8 @@
 import requests, base64, json, sys
 import configparser
 
+# work on a branch.
+
 class httpRequest:
     def __init__(self):
         """ intitialize required variables. """
@@ -44,11 +46,11 @@ class httpRequest:
             self.creds_basic_CP['git_repo_url'] = parser.get('git_repo_details', 'repo_url')
         if parser.has_option('git_repo_details', 'git_secret'):
             self.creds_basic_CP['git_repo_secret'] = parser.get('git_repo_details', 'git_secret')
-            
+
     def _loadCP_Cred(self, configFilename):
         parser = configparser.ConfigParser()
         parser.read(configFilename)
-        
+
         if parser.has_option('cp_cred', 'key'):
             self.consumer_key = parser.get('cp_cred', 'key')
         if parser.has_option('cp_cred', 'secret'):
@@ -166,14 +168,14 @@ if httpRequest_obj.consumer_key == None or httpRequest_obj.consumer_secret == No
     httpRequest_obj.consumer_secret = input('\tEnter Catchpoint API Secret:')
 
 # Check if Git URL is set in config file.
-if httpRequest_obj.creds_basic_CP['git_repo_url'] == None:    
+if httpRequest_obj.creds_basic_CP['git_repo_url'] == None:
     httpRequest_obj.creds_basic_CP['git_repo_url'] = input('\tEnter Git repository URL\n\t[eg: https://raw.githubusercontent.com/user/repo/master/cpscript]\n\t:')
 
 # Check if links are set in config file
 if httpRequest_obj.script_links != []:
     print('|  Enter one of the below Catchpoint script ID to perform an update:    |')
     print('\t-------------------\n\tCP Id  : Git Script\n\t-------------------')
-    
+
     # Display all test details form config file
     for item in httpRequest_obj.script_links:
         for key, value in item.items():
